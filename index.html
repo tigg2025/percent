@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>百分比计算器 - 免费在线百分比计算工具</title>
+    <meta name="description" content="免费的在线百分比计算器，支持百分比计算、百分比求解、百分比变化计算。简单易用，结果实时显示，支持一键复制。">
+    <meta name="keywords" content="百分比计算器,百分比计算,在线计算器,百分比工具,折扣计算,百分比变化">
+    <meta name="author" content="百分比计算器">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="百分比计算器 - 免费在线百分比计算工具">
+    <meta property="og:description" content="免费的在线百分比计算器，支持百分比计算、百分比求解、百分比变化计算。">
+    
+    <!-- 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "百分比计算器",
+        "description": "免费的在线百分比计算工具",
+        "url": "https://example.com",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "CNY"
+        }
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9fafb;
+        }
+
+        .header {
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+        }
+
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo {
+            background: #2563eb;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+
+        .main {
+            padding: 2rem 0;
+        }
+
+        .calculator-card {
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-field {
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-small {
+            width: 5rem;
+        }
+
+        .input-medium {
+            width: 6rem;
+        }
+
+        .label {
+            font-size: 1rem;
+            color: #374151;
+        }
+
+        .result {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: background-color 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #f3f4f6;
+        }
+
+        .copy-icon {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .tips-card {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tips-text {
+            font-size: 0.875rem;
+            color: #1e40af;
+            line-height: 1.5;
+        }
+
+        .separator {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 3rem 0;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        .section-content {
+            color: #374151;
+            line-height: 1.7;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        .toast {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #10b981;
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .calculator-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .input-field {
+                width: 100%;
+                max-width: 8rem;
+            }
+            
+            .result {
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">%</div>
+                <h1>百分比计算器</h1>
+            </div>
+            <p class="subtitle">百分比计算器是一个免费的在线工具，用于计算各种百分比。</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Calculator 1: Y 的 X% 是多少？ -->
+            <section class="calculator-card">
+                <div class="calculator-row">
+                    <input type="number" id="number1" class="input-field input-medium" placeholder="">
+                    <span class="label">的</span>
+                    <input type="number" id="percent1" class="input-field input-small" placeholder="">
+                    <span class="label">% 是多少？</span>
+                    <div id="result1" class="result" style="display: none;">
+                        <span class="result-value"></span>
+                        <button class="copy-btn" onclick="copyResult('result1')" title="复制结果">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calculator 2: X 是 Y 的百分之几？ -->
+            <section class="calculator-card">
+                <div class="calculator-row">
+                    <input type="number" id="number2" class="input-field input-small" placeholder="">
+                    <span class="label">是</span>
+                    <input type="number" id="total2" class="input-field input-medium" placeholder="">
+                    <span class="label">的百分之几？</span>
+                    <div id="result2" class="result" style="display: none;">
+                        <span class="result-value"></span>
+                        <button class="copy-btn" onclick="copyResult('result2')" title="复制结果">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2 2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Calculator 3: 从 X 变化到 Y 的百分比是多少？ -->
+            <section class="calculator-card">
+                <div class="calculator-row">
+                    <span class="label">从</span>
+                    <input type="number" id="from3" class="input-field input-small" placeholder="">
+                    <span class="label">变化到</span>
+                    <input type="number" id="to3" class="input-field input-medium" placeholder="">
+                    <span class="label">的百分比是多少？</span>
+                    <div id="result3" class="result" style="display: none;">
+                        <span class="result-value"></span>
+                        <button class="copy-btn" onclick="copyResult('result3')" title="复制结果">
+                            <svg class="copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2 2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tips -->
+            <div class="tips-card">
+                <p class="tips-text">
+                    <strong>使用示例：</strong><br>
+                    • 100 的 20% 是多少？答案：20<br>
+                    • 20 是 100 的百分之几？答案：20%<br>
+                    • 从 100 变化到 120 的百分比是多少？答案：+20%<br>
+                    <strong>提示：</strong> 输入数字后结果会实时显示，无需额外操作。
+                </p>
+            </div>
+
+            <div class="separator"></div>
+
+            <!-- About Section -->
+            <section class="section">
+                <h2 class="section-title">关于</h2>
+                <p class="section-content">
+                    本网站旨在帮助您快速轻松地计算各种用途的百分比。无论您是在计算折扣、计算小费，还是试图弄清楚某个数值增加或减少了多少，我们的百分比计算器都能帮助您。所有公式都采用符合中文表达习惯的逻辑顺序，让计算更加直观易懂。输入数字后结果会实时显示，让计算过程更加流畅。
+                </p>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="section">
+                <h2 class="section-title">常见问题</h2>
+                
+                <article class="faq-item">
+                    <h3 class="faq-question">什么是百分比？</h3>
+                    <p class="section-content">
+                        百分比是将数字表示为 100 的分数的一种方式。它通常用于表示整体的一部分或比较两个数字。百分比通常用符号"%"表示。例如，如果车库里有 100 辆车，其中 25 辆是白色的，我们可以说车库里 25% 的车是白色的。
+                    </p>
+                </article>
+
+                <article class="faq-item">
+                    <h3 class="faq-question">如何理解百分比计算？</h3>
+                    <p class="section-content">
+                        百分比计算遵循中文的表达逻辑：<br>
+                        • "100 的 20%" 表示 100 × 20% = 20<br>
+                        • "20 是 100 的百分之几" 表示 20 ÷ 100 × 100% = 20%<br>
+                        • "从 100 变化到 120" 表示增长了 (120-100) ÷ 100 × 100% = +20%
+                    </p>
+                </article>
+
+                <article class="faq-item">
+                    <h3 class="faq-question">百分比计算的实际应用</h3>
+                    <p class="section-content">
+                        百分比计算在日常生活中有很多用途：<br>
+                        • 购物折扣：原价 100 元的 8 折是多少？100 的 80% = 80 元<br>
+                        • 成绩分析：考了 85 分，满分 100 分，得分率是多少？85 是 100 的 85%<br>
+                        • 投资收益：本金 1000 元变成 1200 元，收益率是多少？从 1000 到 1200 = +20%
+                    </p>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast">
+        <span id="toast-message">复制成功！</span>
+    </div>
+
+    <script>
+        // 计算器功能
+        function setupCalculator() {
+            // 第一个计算器：Y 的 X% 是多少？
+            const number1 = document.getElementById('number1');
+            const percent1 = document.getElementById('percent1');
+            const result1 = document.getElementById('result1');
+
+            function calculate1() {
+                const num = parseFloat(number1.value);
+                const pct = parseFloat(percent1.value);
+                
+                if (num && pct) {
+                    const result = (num * pct) / 100;
+                    result1.querySelector('.result-value').textContent = `= ${result}`;
+                    result1.style.display = 'flex';
+                } else {
+                    result1.style.display = 'none';
+                }
+            }
+
+            number1.addEventListener('input', calculate1);
+            percent1.addEventListener('input', calculate1);
+
+            // 第二个计算器：X 是 Y 的百分之几？
+            const number2 = document.getElementById('number2');
+            const total2 = document.getElementById('total2');
+            const result2 = document.getElementById('result2');
+
+            function calculate2() {
+                const num = parseFloat(number2.value);
+                const total = parseFloat(total2.value);
+                
+                if (num && total) {
+                    const result = (num / total) * 100;
+                    result2.querySelector('.result-value').textContent = `= ${result.toFixed(2)}%`;
+                    result2.style.display = 'flex';
+                } else {
+                    result2.style.display = 'none';
+                }
+            }
+
+            number2.addEventListener('input', calculate2);
+            total2.addEventListener('input', calculate2);
+
+            // 第三个计算器：从 X 变化到 Y 的百分比是多少？
+            const from3 = document.getElementById('from3');
+            const to3 = document.getElementById('to3');
+            const result3 = document.getElementById('result3');
+
+            function calculate3() {
+                const fromNum = parseFloat(from3.value);
+                const toNum = parseFloat(to3.value);
+                
+                if (fromNum && toNum) {
+                    const result = ((toNum - fromNum) / fromNum) * 100;
+                    const sign = result >= 0 ? '+' : '';
+                    result3.querySelector('.result-value').textContent = `= ${sign}${result.toFixed(2)}%`;
+                    result3.style.display = 'flex';
+                } else {
+                    result3.style.display = 'none';
+                }
+            }
+
+            from3.addEventListener('input', calculate3);
+            to3.addEventListener('input', calculate3);
+        }
+
+        // 复制功能
+        function copyResult(resultId) {
+            const resultElement = document.getElementById(resultId);
+            const resultText = resultElement.querySelector('.result-value').textContent.replace('= ', '');
+            
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(resultText).then(() => {
+                    showToast('复制成功！');
+                }).catch(() => {
+                    showToast('复制失败');
+                });
+            } else {
+                // 兼容旧浏览器
+                const textArea = document.createElement('textarea');
+                textArea.value = resultText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('复制成功！');
+                } catch (err) {
+                    showToast('复制失败');
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // 显示提示消息
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            setupCalculator();
+        });
+    </script>
+</body>
+</html>
